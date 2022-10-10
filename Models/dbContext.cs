@@ -21,7 +21,7 @@ public class dbContext : DbContext
     }
     
     public DbSet<usuarios> usuarios { get; set; }
-    public DbSet<tiposProducto> tiposProductos { get; set; }
+    public DbSet<tiposProducto> tiposProducto { get; set; }
     public DbSet<productos> productos { get; set; }
     public DbSet<pedidos> pedidos { get; set; }
     public DbSet<detallePedido> detallePedidos { get; set; }

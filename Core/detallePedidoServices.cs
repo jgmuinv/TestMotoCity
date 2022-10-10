@@ -25,7 +25,7 @@ public class detallePedidoServices : IdetallePedidoServices
         {
             resp.data = (from dpd in _db.detallePedidos
                 where dpd.id == id
-                select dpd).First();
+                select dpd).FirstOrDefault();
             resp.success = true;
             resp.message = "OK";
         }

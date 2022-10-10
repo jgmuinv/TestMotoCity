@@ -3,11 +3,13 @@ using Microsoft.AspNetCore.Mvc;
 using Models;
 
 namespace VentasApi.Controllers;
-
+[ApiController]
+[Route("[controller]/[action]")]
 public class pedidosController : Controller
 {
     private IpedidosServices _pedidosServices;
-    // GET
+    
+    [HttpGet("{id}")]
     public IActionResult GetById(Int32 id)
     {
         var resp = new GenericResponse<pedidos>();
@@ -25,6 +27,7 @@ public class pedidosController : Controller
         return Ok(resp);
     }
     
+    [HttpGet]
     public IActionResult GetAll()
     {
         var resp = new GenericResponse<List<pedidos>>();
@@ -42,6 +45,7 @@ public class pedidosController : Controller
         return Ok(resp);
     }
     
+    [HttpPost]
     public IActionResult PostAddUpdate(pedidos obj)
     {
         var resp = new GenericResponse<pedidos>();

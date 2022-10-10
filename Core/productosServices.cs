@@ -25,7 +25,7 @@ public class productosServices : IproductosServices
         {
             resp.data = (from p in _db.productos
                 where p.id == id
-                select p).First();
+                select p).FirstOrDefault();
             resp.success = true;
             resp.message = "OK";
         }

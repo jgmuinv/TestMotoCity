@@ -23,9 +23,9 @@ public class tiposProductosServices : ItiposProductosServices
         var resp = new GenericResponse<tiposProducto>();
         try
         {
-            resp.data = (from tp in _db.tiposProductos
+            resp.data = (from tp in _db.tiposProducto
                 where tp.id == id
-                select tp).First();
+                select tp).FirstOrDefault();
             resp.success = true;
             resp.message = "OK";
         }
@@ -71,7 +71,7 @@ public class tiposProductosServices : ItiposProductosServices
         var resp = new GenericResponse<List<tiposProducto>>();
         try
         {
-            resp.data = (from tp in _db.tiposProductos
+            resp.data = (from tp in _db.tiposProducto
                 select tp).ToList();
             resp.success = true;
             resp.message = "OK";

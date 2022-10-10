@@ -3,11 +3,18 @@ using Microsoft.AspNetCore.Mvc;
 using Models;
 
 namespace VentasApi.Controllers;
-
+[ApiController]
+[Route("[controller]/[action]")]
 public class tiposProductoController : Controller
 {
     private ItiposProductosServices _tiposProductosServices;
-    // GET
+
+    public tiposProductoController(ItiposProductosServices tiposProductosServices)
+    {
+        _tiposProductosServices = tiposProductosServices;
+    }
+    
+    [HttpGet("{id}")]
     public IActionResult GetById(Int32 id)
     {
         var resp = new GenericResponse<tiposProducto>();
@@ -25,6 +32,7 @@ public class tiposProductoController : Controller
         return Ok(resp);
     }
     
+    [HttpGet]
     public IActionResult GetAll()
     {
         var resp = new GenericResponse<List<tiposProducto>>();
@@ -42,6 +50,7 @@ public class tiposProductoController : Controller
         return Ok(resp);
     }
     
+    [HttpPost]
     public IActionResult PostAddUpdate(tiposProducto obj)
     {
         var resp = new GenericResponse<tiposProducto>();

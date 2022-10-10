@@ -25,7 +25,7 @@ public class pedidosServices : IpedidosServices
         {
             resp.data = (from pd in _db.pedidos
                     where pd.id == id
-                        select pd).First();
+                        select pd).FirstOrDefault();
             resp.success = true;
             resp.message = "OK";
         }

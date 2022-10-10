@@ -1,4 +1,5 @@
 using Core;
+using Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +13,8 @@ builder.Services.AddTransient<IproductosServices, productosServices>();
 builder.Services.AddTransient<IusuariosServices, usuariosServices>();
 builder.Services.AddTransient<IpedidosServices, pedidosServices>();
 builder.Services.AddTransient<IdetallePedidoServices, detallePedidoServices>();
+
+builder.Services.AddDbContext<dbContext>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

@@ -25,7 +25,7 @@ public class usuariosServices : IusuariosServices
         {
             resp.data = (from u in _db.usuarios
                 where u.id == id
-                select u).First();
+                select u).FirstOrDefault();
             resp.success = true;
             resp.message = "OK";
         }

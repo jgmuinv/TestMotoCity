@@ -1,4 +1,5 @@
-﻿using Models;
+﻿using Microsoft.EntityFrameworkCore;
+using Models;
 
 namespace Core;
 
@@ -24,7 +25,8 @@ public class productosServices : IproductosServices
         try
         {
             resp.data = (from p in _db.productos
-                where p.id == id
+                    .Include(tp =>tp.tiposProducto)
+                where p.productosID == id
                 select p).FirstOrDefault();
             resp.success = true;
             resp.message = "OK";
@@ -45,6 +47,8 @@ public class productosServices : IproductosServices
         try
         {
             resp.data = (from p in _db.productos
+                    .Include(t =>t.tiposProducto)
+                join tp in _db.tiposProducto on p.tiposProductoID equals tp.tiposProductoID 
                 select p).ToList();
             resp.message = "OK";
             resp.success = true;
@@ -63,7 +67,7 @@ public class productosServices : IproductosServices
         var resp = new GenericResponse<productos>();
         try
         {
-            if (obj.id == 0)
+            if (obj.productosID == 0)
             {
                 _db.Add(obj);
             }

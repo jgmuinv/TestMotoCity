@@ -24,7 +24,7 @@ public class tiposProductosServices : ItiposProductosServices
         try
         {
             resp.data = (from tp in _db.tiposProducto
-                where tp.id == id
+                where tp.tiposProductoID == id
                 select tp).FirstOrDefault();
             resp.success = true;
             resp.message = "OK";
@@ -43,7 +43,7 @@ public class tiposProductosServices : ItiposProductosServices
         var resp = new GenericResponse<tiposProducto>();
         try
         {
-            if (obj.id == 0)
+            if (obj.tiposProductoID == 0)
             {
                 _db.Add(obj);
             }

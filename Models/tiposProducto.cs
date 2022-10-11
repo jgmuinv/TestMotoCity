@@ -2,6 +2,6 @@
 
 public class tiposProducto
 {
-    public Int32 id { get; set; }
+    public Int32 tiposProductoID { get; set; }
     public string nombre { get; set; }
 }

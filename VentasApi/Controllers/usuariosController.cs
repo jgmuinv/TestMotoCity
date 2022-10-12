@@ -8,6 +8,11 @@ namespace VentasApi.Controllers;
 public class usuariosController : Controller
 {
     private IusuariosServices _usuariosServices;
+
+    public usuariosController(IusuariosServices usuariosServices)
+    {
+        _usuariosServices = usuariosServices;
+    }
     
     [HttpGet("{id}")]
     public IActionResult GetById(Int32 id)
@@ -16,6 +21,24 @@ public class usuariosController : Controller
         try
         {
             resp = _usuariosServices.GetById(id);
+        }
+        catch (Exception e)
+        {
+            resp.data = null;
+            resp.success = false;
+            resp.message = $"Error: {e.Message} {e.InnerException}";
+        }
+        
+        return Ok(resp);
+    }
+    
+    [HttpGet("{usuario}/{clave}")]
+    public IActionResult GetLogin(string usuario, string clave)
+    {
+        var resp = new GenericResponse<usuarios>();
+        try
+        {
+            resp = _usuariosServices.GetLogin(usuario,clave);
         }
         catch (Exception e)
         {

@@ -1,0 +1,10 @@
+﻿@model Models.productosAComprarDto
+
+@{
+    ViewBag.Title = "Compra realizada";
+    Layout = "_Layout";
+}
+
+<h1>Compra realizada</h1>
+<h2>¡Gracias por tu compra!</h2>
+<h3>Acabas de adquirir @Model.cantidadAComprar piezas de @Model.nombre con un precio unitario de $@Model.precio y un total de $@(Model.precio * Model.cantidadAComprar).</h3>

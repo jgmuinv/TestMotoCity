@@ -7,6 +7,7 @@ public interface IusuariosServices
     public GenericResponse<usuarios> GetById(Int32 id);
     public GenericResponse<List<usuarios>> GetAll();
     public GenericResponse<usuarios> PostAddUpdate(usuarios obj);
+    public GenericResponse<usuarios> GetLogin(string usuario, string clave);
 }
 
 public class usuariosServices : IusuariosServices
@@ -25,6 +26,27 @@ public class usuariosServices : IusuariosServices
         {
             resp.data = (from u in _db.usuarios
                 where u.id == id
+                select u).FirstOrDefault();
+            resp.success = true;
+            resp.message = "OK";
+        }
+        catch (Exception e)
+        {
+            resp.success = false;
+            resp.message = $"Error: {e.Message} {e.InnerException}";
+            resp.data = null;
+        }
+        return resp;
+    }
+    
+    public GenericResponse<usuarios> GetLogin(string usuario, string clave)
+    {
+        var resp = new GenericResponse<usuarios>();
+        try
+        {
+            resp.data = (from u in _db.usuarios
+                where u.nombre == usuario
+                && u.clave == clave
                 select u).FirstOrDefault();
             resp.success = true;
             resp.message = "OK";

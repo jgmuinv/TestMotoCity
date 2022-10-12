@@ -1,0 +1,21 @@
+﻿@model List<Models.CarroDeCompras>
+
+@{
+    ViewBag.Title = "Tu carro de compra";
+    Layout = "_Layout";
+}
+
+<h1>Tu carro de compra</h1>
+
+@if (Model.Any())
+{
+    
+    foreach (var item in Model)
+    {
+        
+    }
+}
+else
+{
+    <p>No tienes artículos en tu carro de compra</p>
+}

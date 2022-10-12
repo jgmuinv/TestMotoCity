@@ -1,50 +1,92 @@
-﻿@model IEnumerable<Models.productos>
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using Microsoft.AspNetCore.Http
+@using Models
+@using Web.Utils
+@inject IHttpContextAccessor HttpContextAccessor
+@model List<Models.productosAComprarDto>
 
 @{
-    ViewData["Title"] = "Home Page";
+    //Get object from session
+    var sessionUser = HttpContextAccessor.HttpContext.Session.GetObjectFromJson<usuarios>("user");
+ }
+
+@{
+    ViewData["Title"] = "Productos";
 }
 
 <h1>Productos</h1>
+@if (sessionUser != null)
+{
+    <p>
+        <a asp-action="CrearProducto">Nuevo registro</a>
+    </p>    
+}
 
-
-<table class="table">
-    <thead>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.tiposProductoID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.nombre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.precio)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.existencias)
-        </th>
-        <th></th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach (var item in Model) {
+@using (Html.BeginForm("Index", "Home", FormMethod.Post))
+{
+    <div class="card">
+        <h5 class="card-header">Filtros</h5>
+        <div class="card-body">
+            <div class="row">
+                <div class="form-group col-md-12">
+                    @Html.Label("Nombre: ")
+                    @Html.TextBox("nombre")
+                    <input type="submit" class="btn btn-success" value="Buscar"/>
+                </div>
+            </div>
+        </div>
+    </div>
+    <table class="table">
+        <thead>
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.tiposProducto.nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.precio)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.existencias)
-            </td>
-            <td>
-                @*@Html.ActionLink("Editar", "EditTerminationReason", new { id=item.terminationReasonID }) |
-                @Html.ActionLink("Borrar", "DeleteTerminationReason", new {  id=item.terminationReasonID})*@
-            </td>
+            <th>
+                @Html.DisplayNameFor(model => model[0].nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].precio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].existencias)
+            </th>
+            @if (sessionUser != null)
+            {
+                <th>
+                    Comprar
+                </th>
+                <th></th>
+             }
+            
         </tr>
-    }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+        @if (Model.Any())
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.nombre)
+                    </td>
+                    <td>
+                        $@Html.DisplayFor(modelItem => item.precio)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.existencias)
+                    </td>
+                    @if (sessionUser != null)
+                     { 
+                         <td>
+                             @Html.ActionLink("Comprar", "Comprar", new {id = item.productosID})
+                         </td>
+                         <td>
+                             @Html.ActionLink("Editar", "EditarProducto", new { id=item.productosID }) | 
+                             @Html.ActionLink("Borrar", "Borrar", new {  id=item.productosID})
+                         </td>
+                     }
+
+                </tr>
+            }
+        }
+        </tbody>
+    </table>    
+}

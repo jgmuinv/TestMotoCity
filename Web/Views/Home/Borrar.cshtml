@@ -1,0 +1,41 @@
+﻿@model Models.productos
+
+@{
+    ViewBag.Title = "Borrar producto";
+    Layout = "_Layout";
+}
+
+<h2>Borrar producto</h2>
+<h3>Detalle</h3>
+
+<h4>¿Está seguro de borrar este regintro?</h4>
+<div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.nombre)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.nombre)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.precio)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.precio)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.existencias)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.existencias)
+        </dd>
+    </dl>
+    
+    <form asp-action="Borrar">
+        <input type="submit" value="Borrar" class="btn btn-danger" /> |
+        <a asp-action="Index">Regresar</a>
+        @Html.HiddenFor(model => model.productosID)
+        @Html.HiddenFor(model => model.activo)
+    </form>
+</div>

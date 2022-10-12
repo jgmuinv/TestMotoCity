@@ -6,11 +6,8 @@ public class productos
 {
     [Required]
     [Display(Name = "Código")]
+    [Key]
     public Int32 productosID { get; set; }
-    public tiposProducto? tiposProducto { get; set; }
-    [Required]
-    [Display(Name = "Tipo")]
-    public Int32 tiposProductoID { get; set; }
     [Required]
     [Display(Name = "Nombre")]
     public string nombre { get; set; }
@@ -20,4 +17,7 @@ public class productos
     [Required]
     [Display(Name = "Existencias")]
     public Int32 existencias { get; set; }
+    [Required]
+    [Display(Name = "Activo")]
+    public bool activo { get; set; }
 }

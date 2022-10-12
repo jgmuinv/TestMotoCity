@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.Configuration;
 
 
@@ -21,8 +22,9 @@ public class dbContext : DbContext
     }
     
     public DbSet<usuarios> usuarios { get; set; }
-    public DbSet<tiposProducto> tiposProducto { get; set; }
     public DbSet<productos> productos { get; set; }
     public DbSet<pedidos> pedidos { get; set; }
     public DbSet<detallePedido> detallePedidos { get; set; }
+    public DbSet<logPrecioProductos> logPrecioProductos { get; set; }
+    public DbSet<compras> compras { get; set; }
 }
